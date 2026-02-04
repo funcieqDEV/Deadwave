@@ -18,7 +18,8 @@ class Engine {
     void start();
     int init(const char *title, int width, int height);
     bool isRunning();
-    void addEntity(Entity *entity) { entites.push_back(entity); }
+    void addEntity(Entity *entity) { toAdd.push_back(entity); }
+    void addPrior(Entity* ent) {entites.push_back(ent); }
 
   private:
     bool _isRunning = false;
@@ -27,4 +28,6 @@ class Engine {
     float _delta;
     SDL_Event event;
     std::vector<Entity *> entites;
+    std::vector<Entity *> toAdd;
+    
 };

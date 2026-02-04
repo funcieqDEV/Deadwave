@@ -1,23 +1,27 @@
 #include "engine/engine.hpp"
-#include "entities/player/player.hpp"
-#include "entities/zombie/zombie.hpp"
+#include "entities/entities.hpp"
 #include <SDL2/SDL.h>
-
+#include <ctime>
+#include <cstdlib>
 int main() {
-    Engine *engine = new Engine();
-    int err = engine->init("Deadwave v0.1", 800, 600);
-    if (err != 0) {
-        return err;
-    }
-    Player p;
-    Zombie z(&p);
-    engine->addEntity(&p);
-    engine->addEntity(&z);
+    srand(time(NULL));
+    Engine* engine = new Engine();
+    if (engine->init("Deadwave v0.1", 800, 600) != 0)
+        return 1;
+
+    Player* player = new Player();
+    Spawner* spawner = new Spawner(engine, player);
+    engine->addPrior(player);
+    engine->addEntity(spawner);
+   
+
     engine->start();
     while (engine->isRunning()) {
         engine->update();
+        engine->render();
     }
 
-    delete engine;
+    delete engine;  
     return 0;
 }
+

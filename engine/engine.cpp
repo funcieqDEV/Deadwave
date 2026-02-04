@@ -9,11 +9,13 @@
 #include <iostream>
 
 Engine::~Engine() {
+    for (auto e : entites) {
+        delete e;
+    }
     SDL_DestroyRenderer(_render);
     SDL_DestroyWindow(window);
     SDL_Quit();
 }
-
 int Engine::init(const char *title, int width, int height) {
 
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -62,7 +64,8 @@ void Engine::update() {
             _isRunning = false;
         }
     }
-
+    entites.insert(entites.end(), toAdd.begin(), toAdd.end());
+    toAdd.clear();
     // update entities
     for (auto e : entites) {
         e->update(getDeltaTime());

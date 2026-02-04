@@ -1,5 +1,6 @@
 #include "zombie.hpp"
 #include <SDL_render.h>
+#include <iostream>
 
 void Zombie::start() {
     this->hp = 100;
@@ -23,6 +24,9 @@ void Zombie::update(float deltaTime) {
 }
 
 void Zombie::follow(float deltaTime){
+    if(!target){
+        std::cout<<"target is nullptr!\n";
+    }
     //target is Player ofc
     int x = target->posX;
     int y = target->posY;

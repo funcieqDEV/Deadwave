@@ -4,6 +4,7 @@
 #include <SDL_render.h>
 #include <SDL_scancode.h>
 #include <SDL_stdinc.h>
+#include <iostream>
 void Player::start() {
     this->hp = 100;
     this->maxHp = hp;
@@ -25,7 +26,9 @@ void Player::update(float deltaTime) {
     } else if (keys[SDL_SCANCODE_A]) {
         this->posX -= speed * deltaTime;
     } else if (keys[SDL_SCANCODE_D]) {
+       
         this->posX += speed * deltaTime;
+     
     }
 }
 
