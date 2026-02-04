@@ -8,7 +8,6 @@
 #include <cstdio>
 #include <iostream>
 
-
 Engine::~Engine() {
     SDL_DestroyRenderer(_render);
     SDL_DestroyWindow(window);
@@ -46,7 +45,7 @@ int Engine::init(const char *title, int width, int height) {
 
 void Engine::start() {
     _isRunning = true;
-    for(auto e: entites){
+    for (auto e : entites) {
         e->start();
     }
     lastTime = SDL_GetTicks();
@@ -64,21 +63,21 @@ void Engine::update() {
         }
     }
 
-    //update entities
-    for(auto e : entites){
+    // update entities
+    for (auto e : entites) {
         e->update(getDeltaTime());
     }
-    //render everything
-    this->render(); 
+    // render everything
+    this->render();
 }
 
-void Engine::render(){
+void Engine::render() {
     SDL_SetRenderDrawColor(_render, 30, 30, 40, 255);
     SDL_RenderClear(_render);
-    for(auto e: entites){
+    for (auto e : entites) {
         e->render(_render);
     }
-    //show frame
+    // show frame
     SDL_RenderPresent(_render);
 }
 

@@ -1,5 +1,6 @@
 #include "engine/engine.hpp"
 #include "entities/player/player.hpp"
+#include "entities/zombie/zombie.hpp"
 #include <SDL2/SDL.h>
 
 int main() {
@@ -9,7 +10,9 @@ int main() {
         return err;
     }
     Player p;
+    Zombie z;
     engine->addEntity(&p);
+    engine->addEntity(&z);
     engine->start();
     while (engine->isRunning()) {
         engine->update();

@@ -12,6 +12,6 @@ class Player : public Entity {
     float posY;
     int size;
     void update(float deltaTime) override;
-    void render(SDL_Renderer* render) override;
+    void render(SDL_Renderer *render) override;
     void start() override;
 };

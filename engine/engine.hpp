@@ -18,12 +18,13 @@ class Engine {
     void start();
     int init(const char *title, int width, int height);
     bool isRunning();
-    void addEntity(Entity* entity){entites.push_back(entity);}
+    void addEntity(Entity *entity) { entites.push_back(entity); }
+
   private:
     bool _isRunning = false;
     Uint32 lastTime;
     Uint32 currentTime;
     float _delta;
     SDL_Event event;
-    std::vector<Entity*> entites;
+    std::vector<Entity *> entites;
 };

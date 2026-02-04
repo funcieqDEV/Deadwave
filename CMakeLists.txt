@@ -7,6 +7,7 @@ add_executable(Deadwave
     main.cpp
     engine/engine.cpp
     entities/player/player.cpp
+    entities/zombie/zombie.cpp
 )
 
 target_link_libraries(Deadwave PRIVATE SDL2::SDL2)
