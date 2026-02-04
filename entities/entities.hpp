@@ -1,6 +1,6 @@
 #pragma once
-//include all entities
-#include "zombie/zombie.hpp"
-#include "player/player.hpp"
+// include all entities
 #include "../engine/entity/entity.hpp"
+#include "player/player.hpp"
 #include "spawner/spawner.hpp"
+#include "zombie/zombie.hpp"

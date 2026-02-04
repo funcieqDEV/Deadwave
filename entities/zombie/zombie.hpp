@@ -6,17 +6,17 @@
 #include <iostream>
 class Zombie : public Entity {
   public:
-  Zombie(Player* p) {
-    if (!p) {
-        std::cerr << "ERROR: Zombie received nullptr player!" << std::endl;
-        posX = posY = 0;
-    } else {
-        target = p;
-        posX = target->posX;
-        posY = target->posY;
-    }
-    size = 32;
-    speed = 50;
+    Zombie(Player *p) {
+        if (!p) {
+            std::cerr << "ERROR: Zombie received nullptr player!" << std::endl;
+            posX = posY = 0;
+        } else {
+            target = p;
+            posX = target->posX;
+            posY = target->posY;
+        }
+        size = 32;
+        speed = 50;
     }
     float posX;
     float posY;
@@ -25,7 +25,7 @@ class Zombie : public Entity {
     Uint16 damage;
     int hp;
     Uint16 maxHp;
-    Player* target = nullptr;
+    Player *target = nullptr;
     void start() override;
     void render(SDL_Renderer *render) override;
     void update(float deltaTime) override;

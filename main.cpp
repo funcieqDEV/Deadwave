@@ -1,7 +1,7 @@
 #include "engine/engine.hpp"
 #include "scenes/game_scene.hpp"
-#include <ctime>
 #include <cstdlib>
+#include <ctime>
 
 int main() {
     srand(time(nullptr));
@@ -19,4 +19,3 @@ int main() {
 
     return 0;
 }
-

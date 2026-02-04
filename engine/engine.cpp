@@ -16,20 +16,14 @@ Engine::~Engine() {
     SDL_Quit();
 }
 
-int Engine::init(const char* title, int width, int height) {
+int Engine::init(const char *title, int width, int height) {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         std::cerr << "SDL init error: " << SDL_GetError() << "\n";
         return 1;
     }
 
-    window = SDL_CreateWindow(
-        title,
-        SDL_WINDOWPOS_CENTERED,
-        SDL_WINDOWPOS_CENTERED,
-        width,
-        height,
-        0
-    );
+    window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED,
+                              SDL_WINDOWPOS_CENTERED, width, height, 0);
 
     if (!window) {
         std::cerr << "Window creation error: " << SDL_GetError() << "\n";
@@ -37,10 +31,7 @@ int Engine::init(const char* title, int width, int height) {
     }
 
     _render = SDL_CreateRenderer(
-        window,
-        -1,
-        SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC
-    );
+        window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
     if (!_render) {
         std::cerr << "Renderer creation error: " << SDL_GetError() << "\n";
@@ -75,7 +66,4 @@ void Engine::render() {
     SDL_RenderPresent(_render);
 }
 
-bool Engine::isRunning() const {
-    return _isRunning;
-}
-
+bool Engine::isRunning() const { return _isRunning; }

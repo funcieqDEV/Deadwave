@@ -19,28 +19,28 @@ void Zombie::render(SDL_Renderer *render) {
 }
 
 void Zombie::update(float deltaTime) {
-    //follow player
+    // follow player
     follow(deltaTime);
 }
 
-void Zombie::follow(float deltaTime){
-    if(!target){
-        std::cout<<"target is nullptr!\n";
+void Zombie::follow(float deltaTime) {
+    if (!target) {
+        std::cout << "target is nullptr!\n";
     }
-    //target is Player ofc
+    // target is Player ofc
     int x = target->posX;
     int y = target->posY;
 
-    if(posX > x){
+    if (posX > x) {
         posX -= speed * deltaTime;
     }
-    if(posX < x){
+    if (posX < x) {
         posX += speed * deltaTime;
     }
-    if(posY > y) {
+    if (posY > y) {
         posY -= speed * deltaTime;
     }
-    if(posY < y){
+    if (posY < y) {
         posY += speed * deltaTime;
     }
 }

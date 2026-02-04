@@ -25,10 +25,9 @@ void Player::update(float deltaTime) {
         this->posY += speed * deltaTime;
     } else if (keys[SDL_SCANCODE_A]) {
         this->posX -= speed * deltaTime;
-    } else if (keys[SDL_SCANCODE_D]) { 
+    } else if (keys[SDL_SCANCODE_D]) {
         this->posX += speed * deltaTime;
     }
-    
 }
 
 void Player::render(SDL_Renderer *render) {
