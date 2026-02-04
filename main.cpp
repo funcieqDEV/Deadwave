@@ -1,5 +1,6 @@
 #include "engine/engine.hpp"
 #include "scenes/game_scene.hpp"
+#include "scenes/menu_scene.hpp"
 #include <cstdlib>
 #include <ctime>
 
@@ -10,7 +11,7 @@ int main() {
     if (engine.init("Deadwave v0.1", 800, 600) != 0)
         return 1;
 
-    engine.sceneManager.setScene(new GameScene(&engine));
+    engine.pushScene(new MenuScene(&engine));
 
     while (engine.isRunning()) {
         engine.update();

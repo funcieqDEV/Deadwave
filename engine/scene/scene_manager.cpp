@@ -4,13 +4,6 @@
 
 SceneManager::~SceneManager() { delete currentScene; }
 
-void SceneManager::setScene(Scene *scene) {
-    if (currentScene)
-        delete currentScene;
-    currentScene = scene;
-    currentScene->start();
-}
-
 void SceneManager::update(float deltaTime) {
     if (currentScene)
         currentScene->update(deltaTime);

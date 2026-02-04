@@ -1,0 +1,45 @@
+#pragma once
+
+#include "../engine/engine.hpp"
+#include "../engine/scene/scene.hpp"
+#include "../engine/ui/button.hpp"
+#include "game_scene.hpp"
+#include "menu_scene.hpp"
+#include <SDL_ttf.h>
+#include <cstdio>
+
+class MenuScene : public Scene {
+  public:
+    explicit MenuScene(Engine *eng) : engine(eng) {}
+
+    TTF_Font *arial = TTF_OpenFont("fonts/Arial.ttf", 24);
+
+    void start() override {
+        int screenW = 800;
+        int screenH = 600;
+        int btnW = 200;
+        int btnH = 50;
+        int spacing = 20;
+
+        int centerX = (screenW - btnW) / 2;
+        int startY = (screenH - (btnH * 2 + spacing)) / 2;
+
+        Button *playBtn = new Button(
+            centerX, startY, btnW, btnH, "Play",
+            [&]() { engine->pushScene(new GameScene(engine)); }, arial,
+            engine->getRenderer());
+        addPrior(playBtn);
+
+        Button *exitBtn = new Button(
+            centerX, startY + btnH + spacing, btnW, btnH, "Exit",
+            [this]() { engine->stop(); }, arial, engine->getRenderer());
+        addEntity(exitBtn);
+    }
+
+    void update(float deltaTime) override { Scene::update(deltaTime); }
+
+    void render(SDL_Renderer *renderer) override { Scene::render(renderer); }
+
+  private:
+    Engine *engine;
+};

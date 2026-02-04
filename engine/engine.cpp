@@ -4,6 +4,7 @@
 #include <SDL_events.h>
 #include <SDL_render.h>
 #include <SDL_timer.h>
+#include <SDL_ttf.h>
 #include <SDL_video.h>
 #include <iostream>
 
@@ -12,7 +13,7 @@ Engine::~Engine() {
         SDL_DestroyRenderer(_render);
     if (window)
         SDL_DestroyWindow(window);
-
+    TTF_Quit();
     SDL_Quit();
 }
 
@@ -37,6 +38,7 @@ int Engine::init(const char *title, int width, int height) {
         std::cerr << "Renderer creation error: " << SDL_GetError() << "\n";
         return 1;
     }
+    TTF_Init();
 
     _isRunning = true;
     lastTime = SDL_GetTicks();
@@ -53,15 +55,16 @@ void Engine::update() {
         if (event.type == SDL_QUIT)
             _isRunning = false;
     }
-
-    sceneManager.update(_delta);
+    if (!sceneStack.empty())
+        sceneStack.back()->update(getDeltaTime());
 }
 
 void Engine::render() {
     SDL_SetRenderDrawColor(_render, 30, 30, 40, 255);
     SDL_RenderClear(_render);
 
-    sceneManager.render(_render);
+    if (!sceneStack.empty())
+        sceneStack.back()->render(_render);
 
     SDL_RenderPresent(_render);
 }

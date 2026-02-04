@@ -5,7 +5,6 @@
 class SceneManager {
   public:
     ~SceneManager();
-    void setScene(Scene *scene);
     void update(float deltaTime);
     void render(SDL_Renderer *render);
 

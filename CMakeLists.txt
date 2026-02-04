@@ -4,6 +4,7 @@ project(Deadwave)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(SDL2 REQUIRED)
+find_package(SDL2_ttf REQUIRED)
 add_executable(Deadwave
     main.cpp
     engine/engine.cpp
@@ -13,4 +14,4 @@ add_executable(Deadwave
     engine/scene/scene_manager.cpp
 )
 
-target_link_libraries(Deadwave PRIVATE SDL2::SDL2)
+target_link_libraries(Deadwave PRIVATE SDL2::SDL2 SDL2_ttf::SDL2_ttf)
