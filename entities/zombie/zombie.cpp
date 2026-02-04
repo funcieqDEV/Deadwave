@@ -6,7 +6,7 @@ void Zombie::start() {
     this->maxHp = hp;
     this->speed = 300;
     this->damage = 5;
-    this->size = 35; // player is an rectangle for now
+    this->size = 35; // zombie is an rectangle for now
     this->posX = 200;
     this->posY = 200;
 }
