@@ -7,7 +7,7 @@
 void Player::start() {
     this->hp = 100;
     this->maxHp = hp;
-    this->speed = 300;
+    this->speed = 200;
     this->damage = 5;
     this->size = 50; // player is an rectangle for now
     this->posX = 100;

@@ -10,7 +10,7 @@ int main() {
         return err;
     }
     Player p;
-    Zombie z;
+    Zombie z(&p);
     engine->addEntity(&p);
     engine->addEntity(&z);
     engine->start();

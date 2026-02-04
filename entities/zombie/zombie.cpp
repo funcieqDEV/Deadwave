@@ -4,7 +4,7 @@
 void Zombie::start() {
     this->hp = 100;
     this->maxHp = hp;
-    this->speed = 300;
+    this->speed = 50;
     this->damage = 5;
     this->size = 35; // zombie is an rectangle for now
     this->posX = 200;
@@ -17,4 +17,26 @@ void Zombie::render(SDL_Renderer *render) {
     SDL_RenderFillRect(render, &zombie);
 }
 
-void Zombie::update(float deltaTime) {}
+void Zombie::update(float deltaTime) {
+    //follow player
+    follow(deltaTime);
+}
+
+void Zombie::follow(float deltaTime){
+    //target is Player ofc
+    int x = target->posX;
+    int y = target->posY;
+
+    if(posX > x){
+        posX -= speed * deltaTime;
+    }
+    if(posX < x){
+        posX += speed * deltaTime;
+    }
+    if(posY > y) {
+        posY -= speed * deltaTime;
+    }
+    if(posY < y){
+        posY += speed * deltaTime;
+    }
+}
