@@ -1,0 +1,33 @@
+#pragma once
+
+#include "../engine/scene/scene.hpp"
+#include "../engine/engine.hpp"
+#include "../entities/player/player.hpp"
+#include "../entities/spawner/spawner.hpp"
+
+class GameScene : public Scene {
+public:
+    explicit GameScene(Engine* eng)
+        : engine(eng) {}
+
+    void start() override {
+        Player* player = new Player();
+        Spawner* spawner = new Spawner(this, player);
+
+        addPrior(player);
+        player->start();
+        addEntity(spawner);
+    }
+
+    void update(float deltaTime) override {
+        Scene::update(deltaTime);
+    }
+
+    void render(SDL_Renderer* renderer) override {
+        Scene::render(renderer);
+    }
+
+private:
+    Engine* engine;
+};
+

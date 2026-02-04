@@ -7,6 +7,7 @@ void Spawner::start(){
 }
 
 
+
 void Spawner::update(float deltaTime) {
     timer += deltaTime;
 
@@ -26,7 +27,7 @@ void Spawner::update(float deltaTime) {
             z->posX = 600 + 50;
         }
 
-        engine->addEntity(z);
+        scene->addEntity(z); 
         timer -= interval;
     }
 }

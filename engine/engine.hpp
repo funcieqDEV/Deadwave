@@ -1,33 +1,32 @@
 #pragma once
-#include "entity/entity.hpp"
+
 #include <SDL2/SDL.h>
-#include <SDL_events.h>
-#include <SDL_render.h>
-#include <SDL_stdinc.h>
-#include <SDL_video.h>
-#include <vector>
+#include "scene/scene_manager.hpp"
+
 class Engine {
-  public:
-    Engine() {}
+public:
+    Engine() = default;
     ~Engine();
-    SDL_Window *window;
-    SDL_Renderer *_render;
-    float getDeltaTime();
+
+    int init(const char* title, int width, int height);
+
     void update();
     void render();
-    void start();
-    int init(const char *title, int width, int height);
-    bool isRunning();
-    void addEntity(Entity *entity) { toAdd.push_back(entity); }
-    void addPrior(Entity* ent) {entites.push_back(ent); }
 
-  private:
+    bool isRunning() const;
+
+    inline SDL_Renderer* getRenderer() const { return _render; }
+    inline float getDeltaTime() const { return _delta; }
+
+    SceneManager sceneManager;
+
+private:
+    SDL_Window* window = nullptr;
+    SDL_Renderer* _render = nullptr;
+
     bool _isRunning = false;
-    Uint32 lastTime;
-    Uint32 currentTime;
-    float _delta;
-    SDL_Event event;
-    std::vector<Entity *> entites;
-    std::vector<Entity *> toAdd;
-    
+
+    float _delta = 0.0f;
+    Uint32 lastTime = 0;
 };
+

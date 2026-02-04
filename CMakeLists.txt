@@ -10,6 +10,7 @@ add_executable(Deadwave
     entities/player/player.cpp
     entities/zombie/zombie.cpp
     entities/spawner/spawner.cpp
+    engine/scene/scene_manager.cpp
 )
 
 target_link_libraries(Deadwave PRIVATE SDL2::SDL2)

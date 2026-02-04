@@ -5,85 +5,77 @@
 #include <SDL_render.h>
 #include <SDL_timer.h>
 #include <SDL_video.h>
-#include <cstdio>
 #include <iostream>
 
 Engine::~Engine() {
-    for (auto e : entites) {
-        delete e;
-    }
-    SDL_DestroyRenderer(_render);
-    SDL_DestroyWindow(window);
+    if (_render)
+        SDL_DestroyRenderer(_render);
+    if (window)
+        SDL_DestroyWindow(window);
+
     SDL_Quit();
 }
-int Engine::init(const char *title, int width, int height) {
 
+int Engine::init(const char* title, int width, int height) {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-        std::cerr << "SDL video init error: " << SDL_GetError() << "\n";
+        std::cerr << "SDL init error: " << SDL_GetError() << "\n";
         return 1;
     }
 
-    Engine::window =
-        SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED_DISPLAY(1),
-                         SDL_WINDOWPOS_CENTERED_DISPLAY(1), width, height, 0);
+    window = SDL_CreateWindow(
+        title,
+        SDL_WINDOWPOS_CENTERED,
+        SDL_WINDOWPOS_CENTERED,
+        width,
+        height,
+        0
+    );
 
     if (!window) {
-        std::cerr << "Error during window creation: " << SDL_GetError() << "\n";
-        SDL_Quit();
+        std::cerr << "Window creation error: " << SDL_GetError() << "\n";
         return 1;
     }
 
-    Engine::_render = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    _render = SDL_CreateRenderer(
+        window,
+        -1,
+        SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC
+    );
 
     if (!_render) {
-        std::cerr << "Error during renderer creation: " << SDL_GetError()
-                  << "\n";
-        SDL_DestroyWindow(window);
-        SDL_Quit();
+        std::cerr << "Renderer creation error: " << SDL_GetError() << "\n";
         return 1;
     }
+
+    _isRunning = true;
+    lastTime = SDL_GetTicks();
     return 0;
 }
 
-void Engine::start() {
-    _isRunning = true;
-    for (auto e : entites) {
-        e->start();
-    }
-    lastTime = SDL_GetTicks();
-}
-
 void Engine::update() {
-    Uint32 currentTime = SDL_GetTicks();
-    _delta = (currentTime - lastTime) / 1000.0f; // delta (seconds)
-    lastTime = currentTime;
+    Uint32 now = SDL_GetTicks();
+    _delta = (now - lastTime) / 1000.0f;
+    lastTime = now;
 
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
-        if (event.type == SDL_QUIT) {
+        if (event.type == SDL_QUIT)
             _isRunning = false;
-        }
     }
-    entites.insert(entites.end(), toAdd.begin(), toAdd.end());
-    toAdd.clear();
-    // update entities
-    for (auto e : entites) {
-        e->update(getDeltaTime());
-    }
-    // render everything
-    this->render();
+
+    sceneManager.update(_delta);
 }
 
 void Engine::render() {
     SDL_SetRenderDrawColor(_render, 30, 30, 40, 255);
     SDL_RenderClear(_render);
-    for (auto e : entites) {
-        e->render(_render);
-    }
-    // show frame
+
+    sceneManager.render(_render);
+
     SDL_RenderPresent(_render);
 }
 
-float Engine::getDeltaTime() { return Engine::_delta; }
+bool Engine::isRunning() const {
+    return _isRunning;
+}
 
-bool Engine::isRunning() { return _isRunning; }
