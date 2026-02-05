@@ -25,9 +25,21 @@ class MenuScene : public Scene {
         int startY = (screenH - (btnH * 2 + spacing)) / 2;
 
         Button *playBtn = new Button(
-            centerX, startY, btnW, btnH, "Play",
-            [&]() { engine->pushScene(new GameScene(engine)); }, arial,
-            engine->getRenderer());
+            centerX, 
+            startY, 
+            btnW, 
+            btnH, 
+            "Play",
+            [&]() { 
+            engine->pushScene(new GameScene(engine)); 
+            }, 
+            arial, 
+            engine->getRenderer()
+            );
+
+        playBtn->onHover([playBtn]() { playBtn->setColor(20, 100, 250); });
+
+
         addPrior(playBtn);
 
         Button *exitBtn = new Button(
