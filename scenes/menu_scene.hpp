@@ -1,18 +1,18 @@
+
 #pragma once
 
 #include "../engine/engine.hpp"
 #include "../engine/scene/scene.hpp"
 #include "../engine/ui/button.hpp"
 #include "game_scene.hpp"
-#include "menu_scene.hpp"
 #include <SDL_ttf.h>
 #include <cstdio>
 
 class MenuScene : public Scene {
-  public:
+public:
     explicit MenuScene(Engine *eng) : engine(eng) {}
 
-    TTF_Font *arial = TTF_OpenFont("fonts/Arial.ttf", 24);
+    TTF_Font* arial = TTF_OpenFont("fonts/Arial.ttf", 24);
 
     void start() override {
         int screenW = 800;
@@ -24,34 +24,43 @@ class MenuScene : public Scene {
         int centerX = (screenW - btnW) / 2;
         int startY = (screenH - (btnH * 2 + spacing)) / 2;
 
-        Button *playBtn = new Button(
-            centerX, 
-            startY, 
-            btnW, 
-            btnH, 
-            "Play",
-            [&]() { 
-            engine->pushScene(new GameScene(engine)); 
-            }, 
-            arial, 
+
+        Button* playBtn = new Button(
+            centerX, startY, btnW, btnH, "Play",
+            [engine = engine]() { 
+                engine->pushScene(new GameScene(engine)); 
+            },
+            arial,
             engine->getRenderer()
-            );
+        );
 
-        playBtn->onHover([playBtn]() { playBtn->setColor(20, 100, 250); });
-
+        playBtn->onHover([playBtn]() { 
+            playBtn->setColor(20, 100, 250); 
+        });
+        playBtn->onLeave([playBtn]() { 
+            playBtn->setColor(200, 200, 200); 
+        });
 
         addPrior(playBtn);
 
-        Button *exitBtn = new Button(
+
+        Button* exitBtn = new Button(
             centerX, startY + btnH + spacing, btnW, btnH, "Exit",
-            [this]() { engine->stop(); }, arial, engine->getRenderer());
-        addEntity(exitBtn);
+            [engine = engine]() { engine->stop(); },
+            arial,
+            engine->getRenderer()
+        );
+
+        exitBtn->onHover([exitBtn]() { exitBtn->setColor(200, 50, 50); });
+        exitBtn->onLeave([exitBtn]() { exitBtn->setColor(200, 200, 200); });
+
+        addPrior(exitBtn);
     }
 
     void update(float deltaTime) override { Scene::update(deltaTime); }
+    void render(SDL_Renderer* renderer) override { Scene::render(renderer); }
 
-    void render(SDL_Renderer *renderer) override { Scene::render(renderer); }
-
-  private:
-    Engine *engine;
+private:
+    Engine* engine;
 };
+
