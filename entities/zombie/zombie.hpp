@@ -1,6 +1,7 @@
 #pragma once
 #include "../../engine/entity/entity.hpp"
 #include "../player/player.hpp"
+#include <SDL_rect.h>
 #include <SDL_render.h>
 #include <SDL_stdinc.h>
 #include <iostream>
@@ -26,8 +27,12 @@ class Zombie : public Entity {
     int hp;
     Uint16 maxHp;
     Player *target = nullptr;
+    SDL_Texture* texture;
     void start() override;
     void render(SDL_Renderer *render) override;
     void update(float deltaTime) override;
     void follow(float deltaTime);
+    void loadTexture(SDL_Renderer* render,const char* path) override;
+  private:
+    SDL_Rect dest;
 };

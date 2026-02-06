@@ -35,3 +35,8 @@ void Player::render(SDL_Renderer *render) {
     SDL_SetRenderDrawColor(render, 200, 40, 40, 255);
     SDL_RenderFillRect(render, &player);
 }
+
+void Player::loadTexture(SDL_Renderer* render, const char* path) {
+    Entity::loadTexture(render, path);
+    // Player is currently rendered as a rectangle, texture loading not needed
+}

@@ -6,6 +6,7 @@
 #include <SDL_timer.h>
 #include <SDL_ttf.h>
 #include <SDL_video.h>
+#include <SDL_image.h>
 #include <iostream>
 
 Engine::~Engine() {
@@ -39,6 +40,10 @@ int Engine::init(const char *title, int width, int height) {
         return 1;
     }
     TTF_Init();
+    if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) {
+    printf("Error during initialization SDL_image: %s\n", IMG_GetError());
+}
+
 
     _isRunning = true;
     lastTime = SDL_GetTicks();

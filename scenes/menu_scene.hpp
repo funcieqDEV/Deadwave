@@ -27,8 +27,8 @@ public:
 
         Button* playBtn = new Button(
             centerX, startY, btnW, btnH, "Play",
-            [engine = engine]() { 
-                engine->pushScene(new GameScene(engine)); 
+            [en = engine]() { 
+                en->pushScene(new GameScene(en)); 
             },
             arial,
             engine->getRenderer()

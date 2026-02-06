@@ -16,6 +16,8 @@ class GameScene : public Scene {
         addPrior(player);
         player->start();
         addEntity(spawner);
+        
+        spawner->start();
     }
 
     void update(float deltaTime) override { Scene::update(deltaTime); }

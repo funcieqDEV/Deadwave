@@ -1,6 +1,8 @@
 #pragma once
 #include "../../engine/entity/entity.hpp"
+#include <SDL_render.h>
 #include <SDL_stdinc.h>
+#include <SDL_surface.h>
 #include <cstdint>
 class Player : public Entity {
   public:
@@ -14,4 +16,5 @@ class Player : public Entity {
     void update(float deltaTime) override;
     void render(SDL_Renderer *render) override;
     void start() override;
+    void loadTexture(SDL_Renderer* render, const char* path) override;
 };

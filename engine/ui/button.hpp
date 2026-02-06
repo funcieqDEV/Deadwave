@@ -1,5 +1,3 @@
-
-
 #pragma once
 #include "../entity/entity.hpp"
 #include <string>
